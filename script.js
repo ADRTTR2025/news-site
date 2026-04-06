@@ -1,17 +1,19 @@
 const container = document.getElementById("newscontainer");
 
-function displayNews(data) {
+function displayNews (articles) {
+    if (!articles) return;
+
     container.innerHTML ="";
 
-    data.forEach(news => {
+    articles.forEach(article => {
         const card = document.createElement("div");
         card.classList.add("news-card");
 
         card.innerHTML = `
-        <img src="${news.urlToImage}" alt="">
-        <h2>${news.title}</h2>
-        <p>${news.description || "لايوجد وصف"}</p>
-        <button onclick="window.open('${news.url}')">اقرأ المزيد</button>
+        <img src="${article.urlToImage}" alt="">
+        <h2>${article.title}</h2>
+        <p>${article.description || "لايوجد وصف"}</p>
+        <button onclick="window.open('${article.url}')">اقرأ المزيد</button>
         `;
 
         container.appendChild(card);
@@ -19,11 +21,22 @@ function displayNews(data) {
 }
 
 async function getNews() {
-const response = await fetch("https://newsapi.org/v2/top-headlines?country=us&apikey=e5bf650362f64304a41ec16b51903671");
+const url = `https://api.allorigins.win/raw?url=https://newsapi.org/v2/top-headlines?country=us&apiKey=e5bf650362f64304a41ec16b51903671`;
 
-const data = await response.json();
+try {
+    const res = await fetch(url);
+    const data = await res.json();
 
-displayNews(data.articles);
+    if (!data.articles) {
+        console.log("API error:", data);
+        return;
+    }
+    displayNews(data.articles);
+
+} catch (error) {
+    console.log("Error:", error);
 }
-
+}
 getNews();
+
+
