@@ -21,7 +21,7 @@ function displayNews (articles) {
 }
 
 async function getNews() {
-const url = `https://api.allorigins.win/raw?url=https://newsapi.org/v2/top-headlines?country=us&apiKey=e5bf650362f64304a41ec16b51903671`;
+const url = `https://corsproxy.io/?https://newsapi.org/v2/top-headlines?country=us&apiKey=e5bf650362f64304a41ec16b51903671`;
 
 try {
     const res = await fetch(url);
