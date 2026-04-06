@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>تفاصيل الخبر</title>
+        <link rel="stylesheet" href="details.css">
+    </head>
+    <body>
+
+        <h1 id="title"></h1>
+        <img id="image" style="width: 300px;">
+        <p id="description"></p>
+
+        <script>
+            const params = new URLSearchParams(window.location.search);
+
+            const title = params.get("title");
+            const description = params.get("description");
+            const image = params.get("image");
+
+            document.getElementById("title").textContent = title;
+            document.getElementById("description").textContent = description;
+            document.getElementById("image").src = image;
+        </script>
+    </body>
+</html>
